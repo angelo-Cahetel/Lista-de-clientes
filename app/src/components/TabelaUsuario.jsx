@@ -5,10 +5,44 @@ import Link from "next/link";
 import { useUsuarios } from "../hooks/useUsuarios";
 
 export default function TabelaUsuarios() {
-  const { usuarios, busca, setBusca, carregando, erro } = useUsuarios();
+  const {
+    usuarios,
+    busca,
+    setBusca,
+    carregando,
+    erro,
+    tentarNovamente,
+  } = useUsuarios();
 
-  if (carregando) return <p>Carregando funcionários...</p>;
-  if (erro) return <p>Erro: {erro}</p>;
+  if (carregando) {
+    return (
+      <p
+        className="mx-auto w-full max-w-6xl px-4 py-10 text-center"
+        role="status"
+        aria-live="polite"
+      >
+        Carregando a lista de funcionários...
+      </p>
+    );
+  }
+
+  if (erro) {
+    return (
+      <div
+        className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 px-4 py-10 text-center"
+        role="alert"
+      >
+        <p>{erro}</p>
+        <button
+          type="button"
+          onClick={tentarNovamente}
+          className="rounded-md bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
