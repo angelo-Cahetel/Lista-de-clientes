@@ -27,14 +27,11 @@ export function useUsuarios() {
     const termo = busca.toLowerCase().trim();
     if (!termo) return usuarios;
 
-    return usuarios.filter(
-      (usuario) => {
-        usuario.name.toLowerCase().includes(termo) ||
-          usuario.company.name.toLowerCase().includes(termo);
-      },
-      [usuarios, busca],
+    return usuarios.filter((usuario) =>
+      usuario.name.toLowerCase().includes(termo) ||
+      usuario.company.name.toLowerCase().includes(termo)
     );
-  });
+  }, [usuarios, busca]);
 
-  return { usuarios: usuariosFiltrados, carregando, erro, setBusca };
+  return { usuarios: usuariosFiltrados, busca, carregando, erro, setBusca };
 }
