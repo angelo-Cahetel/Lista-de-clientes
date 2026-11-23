@@ -8,6 +8,7 @@ export function useUsuarios() {
   const [busca, setBusca] = useState("");
   const [erro, setErro] = useState(null);
   const [tentativa, setTentativa] = useState(0);
+  const [ordem, setOrdem] = useState("az");
 
   useEffect(() => {
     let ativo = true;
@@ -42,13 +43,21 @@ export function useUsuarios() {
 
   const usuariosFiltrados = useMemo(() => {
     const termo = busca.toLowerCase().trim();
-    if (!termo) return usuarios;
+    const filtrados = termo
+      ? usuarios.filter(
+          (usuario) =>
+            usuario.name.toLowerCase().includes(termo) ||
+            usuario.company.name.toLowerCase().includes(termo)
+        )
+      : usuarios;
 
-    return usuarios.filter((usuario) =>
-      usuario.name.toLowerCase().includes(termo) ||
-      usuario.company.name.toLowerCase().includes(termo)
-    );
-  }, [usuarios, busca]);
+    return [...filtrados].sort((a, b) => {
+      const resultado = a.name.localeCompare(b.name, "pt-BR", {
+        sensitivity: "base",
+      });
+      return ordem === "az" ? resultado : -resultado;
+    });
+  }, [usuarios, busca, ordem]);
 
   return {
     usuarios: usuariosFiltrados,
@@ -56,6 +65,8 @@ export function useUsuarios() {
     carregando,
     erro,
     setBusca,
+    ordem,
+    setOrdem,
     tentarNovamente,
   };
 }

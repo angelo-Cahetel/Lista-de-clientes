@@ -9,6 +9,8 @@ export default function TabelaUsuarios() {
     usuarios,
     busca,
     setBusca,
+    ordem,
+    setOrdem,
     carregando,
     erro,
     tentarNovamente,
@@ -48,13 +50,24 @@ export default function TabelaUsuarios() {
     <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
       <div className="flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
         <h1 className="text-2xl">Lista de Funcionários</h1>
-        <input
-          type="text"
-          placeholder="Buscar por nome ou empresa"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          className="border py-2 px-5 rounded-2xl bg-zinc-200"
-        />
+        <div className="flex w-full flex-col gap-3 sm:flex-row md:w-auto">
+          <input
+            type="text"
+            placeholder="Buscar por nome ou empresa"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            className="w-full rounded-2xl border bg-zinc-200 px-5 py-2 sm:w-auto"
+          />
+          <select
+            aria-label="Ordenar funcionários por nome"
+            value={ordem}
+            onChange={(e) => setOrdem(e.target.value)}
+            className="rounded-lg border border-gray-300 bg-white px-4 py-2"
+          >
+            <option value="az">Nome: A-Z</option>
+            <option value="za">Nome: Z-A</option>
+          </select>
+        </div>
       </div>
 
       {usuarios.length === 0 ? (
