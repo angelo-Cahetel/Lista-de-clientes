@@ -11,8 +11,8 @@ export default function TabelaUsuarios() {
   if (erro) return <p>Erro: {erro}</p>;
 
   return (
-    <div>
-      <div className="p-6 flex justify-between">
+    <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
+      <div className="flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
         <h1 className="text-2xl">Lista de Funcionários</h1>
         <input
           type="text"
@@ -30,41 +30,97 @@ export default function TabelaUsuarios() {
             : "Nenhum funcionário encontrado."}
         </p>
       ) : (
-        <table className="w-full border-collapse border border-gray-400 table-auto">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 p-2 text-start">Nome</th>
-              <th className="border border-gray-300 p-2 text-start">Cidade</th>
-              <th className="border border-gray-300 p-2 text-start">
-                Telefone
-              </th>
-              <th className="border border-gray-300 p-2 text-start">E-mail</th>
-              <th className="border border-gray-300 p-2 text-start">Empresa</th>
-            </tr>
-          </thead>
-          <tbody>
+        <>
+          <ul className="space-y-3 md:hidden">
             {usuarios.map((usuario) => (
-              <tr key={usuario.id}>
-                <td className="border border-gray-300 p-2">
+              <li
+                key={usuario.id}
+                className="rounded-lg border border-gray-300 p-4 shadow-sm"
+              >
+                <h2 className="text-lg font-semibold">
                   <Link
                     href={`/funcionarios/${usuario.id}`}
-                    className="font-medium text-blue-700 underline"
+                    className="text-blue-700 underline"
                   >
                     {usuario.name}
                   </Link>
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {usuario.address.city}
-                </td>
-                <td className="border border-gray-300 p-2">{usuario.phone}</td>
-                <td className="border border-gray-300 p-2">{usuario.email}</td>
-                <td className="border border-gray-300 p-2">
-                  {usuario.company.name}
-                </td>
-              </tr>
+                </h2>
+                <dl className="mt-3 space-y-2 text-sm">
+                  <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
+                    <dt className="text-zinc-600">Cidade</dt>
+                    <dd className="min-w-0 wrap-break-word">
+                      {usuario.address.city}
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
+                    <dt className="text-zinc-600">Telefone</dt>
+                    <dd className="min-w-0 wrap-break-word">{usuario.phone}</dd>
+                  </div>
+                  <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
+                    <dt className="text-zinc-600">E-mail</dt>
+                    <dd className="min-w-0 wrap-break-word">{usuario.email}</dd>
+                  </div>
+                  <div className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
+                    <dt className="text-zinc-600">Empresa</dt>
+                    <dd className="min-w-0 wrap-break-word">
+                      {usuario.company.name}
+                    </dd>
+                  </div>
+                </dl>
+              </li>
             ))}
-          </tbody>
-        </table>
+          </ul>
+
+          <div className="hidden w-full overflow-x-auto md:block">
+            <table className="w-full min-w-180 border-collapse border border-gray-400 table-auto">
+              <thead>
+                <tr>
+                  <th className="border border-gray-300 p-2 text-start">
+                    Nome
+                  </th>
+                  <th className="border border-gray-300 p-2 text-start">
+                    Cidade
+                  </th>
+                  <th className="border border-gray-300 p-2 text-start">
+                    Telefone
+                  </th>
+                  <th className="border border-gray-300 p-2 text-start">
+                    E-mail
+                  </th>
+                  <th className="border border-gray-300 p-2 text-start">
+                    Empresa
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td className="border border-gray-300 p-2">
+                      <Link
+                        href={`/funcionarios/${usuario.id}`}
+                        className="font-medium text-blue-700 underline"
+                      >
+                        {usuario.name}
+                      </Link>
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {usuario.address.city}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {usuario.phone}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {usuario.email}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {usuario.company.name}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
