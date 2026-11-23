@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lista de Clientes
 
-## Getting Started
+## Descrição
 
-First, run the development server:
+O app `Lista de Clientes` é um sistema que lê uma arquivo ´JSON´, e devolve as informações em uma tabela onde o usuário pode facilemente encontrar o seu cliente e suas informações completas.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tecnologias utilizadas
+
+- NextJS
+- React
+- TailwindCSS
+
+## Como instalar e utilizar a aplicação
+
+No seu terminal rode os seguintes comandos:
+
 ```
+npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# depois disso
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+npm run dev
+```
+## Estrutua do projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Em `/funcionario/[id]/page.jsx` contém o arquivo que contém todas as informações do cliente ao clicar no nome dele.
 
-## Learn More
+Em `/services/usuarioService.js` é o trecho em que centraliza as chamadas à API de clientes.
 
-To learn more about Next.js, take a look at the following resources:
+- `buscarUsarios()` faz uma requisição para obter a lista de usuários
+- `buscarUsuarioPorId()` busca um usuário específico pelo ID
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O arquivo `/hook/useUsuarios.js` cria um hook personalizado para carregar e filtrar usuarios.
